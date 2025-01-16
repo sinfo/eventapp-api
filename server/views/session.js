@@ -2,10 +2,10 @@ module.exports = function render (content) {
     if (content instanceof Array) {
       return content.map(renderObject)
     }
-  
+
     return renderObject(content)
   }
-    
+
   function renderObject (model) {
     return {
         id: model.id,
@@ -21,7 +21,7 @@ module.exports = function render (content) {
         updated: model.updated,
         event: model.event,
         tickets: model.tickets,
-        surveyNeeded: model.surveyNeeded
+        prize: model.prize
     }
   }
-    
+

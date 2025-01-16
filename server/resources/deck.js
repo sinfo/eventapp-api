@@ -74,7 +74,14 @@ async function getSession(sessionId) {
   const session = await axios.get(`${DECK_API_URL}/public/sessions/${sessionId}`)
   session.data.company?.participation?.sort((a, b) => b.event - a.event) // Sort by event in descending order
   session.data.speaker?.forEach(speaker => speaker.participation?.sort((a, b) => b.event - a.event)) // Sort by event in descending order
-  return transformSession(session.data)
+  const sessionPrize = await server.methods.prize.getPrizeBySession(sessionId)
+  return transformSession({...session.data, prize: sessionPrize ? {
+      id: sessionPrize.id,
+      name: sessionPrize.name,
+      img: sessionPrize.img,
+      edition: sessionPrize.edition
+    } : undefined
+  })
 }
 
 async function getSpeakers(edition) {
@@ -165,6 +172,7 @@ function transformSession(session, options) {
       end: session.tickets?.end,
       max: session.tickets?.max,
     },
+    prize: session.prize
   }
 }
 
