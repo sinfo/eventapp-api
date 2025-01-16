@@ -13,7 +13,9 @@ function renderObject (model) {
       site: model.site,
       advertisementLvl: model.advertisementLvl,
       img: model.img,
-      sessions: model.sessions
+      sessions: model.sessions,
+      standDetails: model.standDetails,
+      stands: model.stands
   }
 }
 

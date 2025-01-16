@@ -134,7 +134,9 @@ function transformCompany(company, options) {
       kind: participation?.package.name || (participation?.partner && "Partner"),
       items: participation?.package.items,
     },
-    sessions: company.sessions?.map(s => transformSession(s))
+    sessions: company.sessions?.map(s => transformSession(s)),
+    standDetails: options?.compact ? undefined : participation.standDetails,
+    stands: options?.compact ? undefined : participation.stands
   }
 }
 
