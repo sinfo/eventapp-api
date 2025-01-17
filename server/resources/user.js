@@ -55,6 +55,10 @@ async function update(filter, user, opts) {
 
   if (user && user.company) {
     const user2 = Object.assign({}, user)
+    if (!user.company.edition) {
+      const latestEdition = await request.server.methods.deck.getLatestEdition()
+      user.company.edition = latestEdition.id;
+    }
     user.$pull = { 'company': { 'edition': user.company.edition } }
     user2.$push = { 'company': user.company }
     delete user.company
